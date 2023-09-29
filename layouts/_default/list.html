@@ -1,9 +1,5 @@
 {{- define "main" }}
 
-{{- if (and .Site.Params.profileMode.enabled .IsHome) }}
-{{- partial "index_profile.html" . }}
-{{- else }} {{/* if not profileMode */}}
-
 {{- if not .IsHome | and .Title }}
 <header class="page-header">
   {{- partial "breadcrumbs.html" . }}
@@ -41,11 +37,9 @@
       {{- .Title }}
     </h2>
   </header>
-  {{- if (ne (.Param "hideSummary") true) }}
   <section class="entry-content">
     <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
   </section>
-  {{- end }}
   <footer class="entry-footer">
     {{- partial "post_meta.html" . -}}
   </footer>
@@ -65,7 +59,5 @@
   </nav>
 </footer>
 {{- end }}
-
-{{- end }}{{/* end profileMode */}}
 
 {{- end }}{{- /* end main */ -}}
