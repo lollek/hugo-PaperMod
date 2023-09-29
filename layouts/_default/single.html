@@ -15,7 +15,6 @@
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
       {{- partial "edit_post.html" . -}}
-      {{- partial "post_canonical.html" . -}}
     </div>
   </header>
   {{- $isHidden := .Params.cover.hidden | default .Site.Params.cover.hiddenInSingle | default .Site.Params.cover.hidden }}
