@@ -109,7 +109,6 @@
         }
 
     </style>
-    {{- if (and (ne .Site.Params.defaultTheme "light") (ne .Site.Params.defaultTheme "dark")) }}
     <style>
         @media (prefers-color-scheme: dark) {
             :root {
@@ -138,5 +137,4 @@
         }
 
     </style>
-    {{- end }}
 </noscript>
