@@ -4,7 +4,7 @@
 <meta name="robots" content="index, follow">
 
 {{- /* Title */}}
-<title>{{ if .IsHome }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ end }}{{ .Site.Title }}</title>
+<title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 {{- /* Meta */}}
 {{- if .IsHome }}
@@ -26,7 +26,7 @@
 {{- $common := (resources.Match "css/common/*.css") | resources.Concat "assets/css/common.css" }}
 
 {{- /* include `an-old-hope` if hljs is on */}}
-{{- $isHLJSdisabled := (.Site.Params.assets.disableHLJS | default false) }}
+{{- $isHLJSdisabled := false }}
 {{- $hljs := (cond ($isHLJSdisabled) (" " | resources.FromString "assets/css/hljs-blank.css") (resources.Get "css/hljs/an-old-hope.min.css")) }}
 
 {{- /* order is important */}}
@@ -84,14 +84,6 @@
 
 {{- /* Generator */}}
 {{ hugo.Generator }}
-
-{{- /* RSS */}}
-{{ range .AlternativeOutputFormats -}}
-<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
-{{ end -}}
-{{- range .AllTranslations -}}
-<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
-{{ end -}}
 
 <noscript>
     <style>
