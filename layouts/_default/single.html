@@ -14,6 +14,12 @@
     {{- end }}
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
+
+      {{- if not .Date.IsZero -}} &nbsp;|&nbsp; {{- end }}
+      {{- $fileUrlPath := path.Join .File.Path }}
+      <a href="https://github.com/lollek/iix.se-hugo/edit/master/content/{{ $fileUrlPath }}" rel="noopener noreferrer" target="_blank">
+          Edit
+      </a>
     </div>
   </header>
   {{- partial "toc.html" . }}
