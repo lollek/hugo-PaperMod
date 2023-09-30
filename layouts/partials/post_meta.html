@@ -1,3 +1,12 @@
 {{- if not .Date.IsZero -}}
 <span title='{{ .Date }}'>{{ .Date | time.Format .Site.Params.DateFormat }}</span>
+&nbsp;|&nbsp; 
+{{- end }}
+
+
+{{- range $index, $tag := ($.GetTerms "tags") }}
+{{- if not (eq $index 0) }}
+&nbsp;
+{{- end }}
+<a href="{{ $tag.Permalink }}">🏷️ {{ $tag.LinkTitle }}</a>
 {{- end }}

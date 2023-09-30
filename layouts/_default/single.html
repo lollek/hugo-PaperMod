@@ -14,7 +14,7 @@
       {{- if not .Date.IsZero -}} &nbsp;|&nbsp; {{- end }}
       {{- $fileUrlPath := path.Join .File.Path }}
       <a href="https://github.com/lollek/iix.se-hugo/edit/master/content/{{ $fileUrlPath }}" rel="noopener noreferrer" target="_blank">
-          Edit
+          📝 Edit
       </a>
     </div>
   </header>
@@ -27,16 +27,6 @@
     {{- else }}{{ .Content }}{{ end }}
   </div>
   {{- end }}
-
-  <footer class="post-footer">
-    {{- if .Params.tags }}
-    <ul class="post-tags">
-      {{- range ($.GetTerms "tags") }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-      {{- end }}
-    </ul>
-    {{- end }}
-  </footer>
 </article>
 
 {{- end }}{{/* end main */}}
