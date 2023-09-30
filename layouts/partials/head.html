@@ -1,14 +1,10 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-{{- if hugo.IsProduction | or (eq .Site.Params.env "production") }}
 <meta name="robots" content="index, follow">
-{{- else }}
-<meta name="robots" content="noindex, nofollow">
-{{- end }}
 
 {{- /* Title */}}
-<title>{{ if .IsHome }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ end }}{{ .Site.Title }}</title>
+<title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 {{- /* Meta */}}
 {{- if .IsHome }}
@@ -21,17 +17,7 @@
 <meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
     {{- .Summary | default (printf "%s - %s" .Title  .Site.Title) }}{{- else }}
     {{- with .Site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
-<meta name="author" content="{{ (partial "author.html" . ) }}">
 <link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}" />
-{{- if .Site.Params.analytics.google.SiteVerificationTag }}
-<meta name="google-site-verification" content="{{ .Site.Params.analytics.google.SiteVerificationTag }}" />
-{{- end }}
-{{- if .Site.Params.analytics.yandex.SiteVerificationTag }}
-<meta name="yandex-verification" content="{{ .Site.Params.analytics.yandex.SiteVerificationTag }}" />
-{{- end }}
-{{- if .Site.Params.analytics.bing.SiteVerificationTag }}
-<meta name="msvalidate.01" content="{{ .Site.Params.analytics.bing.SiteVerificationTag }}" />
-{{- end }}
 
 {{- /* Styles */}}
 {{- $theme_vars := (resources.Get "css/core/theme-vars.css") }}
@@ -40,7 +26,7 @@
 {{- $common := (resources.Match "css/common/*.css") | resources.Concat "assets/css/common.css" }}
 
 {{- /* include `an-old-hope` if hljs is on */}}
-{{- $isHLJSdisabled := (.Site.Params.assets.disableHLJS | default false) }}
+{{- $isHLJSdisabled := false }}
 {{- $hljs := (cond ($isHLJSdisabled) (" " | resources.FromString "assets/css/hljs-blank.css") (resources.Get "css/hljs/an-old-hope.min.css")) }}
 
 {{- /* order is important */}}
@@ -58,15 +44,7 @@
 <link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet" as="style">
 {{- end }}
 
-{{- with .Site.Params.profileMode }}
-{{- if and .enabled .imageUrl $.IsHome }}
-<link rel="preload" href="{{ .imageUrl }}" as="image">
-{{- end }}
-{{- end }}
-
-{{- with .Site.Params.label.icon }}
-<link rel="preload" href="{{ . }}" as="image">
-{{- end }}
+<link rel="preload" href="favicon.ico" as="image">
 
 {{- /* Search */}}
 {{- if (eq .Layout `search`) -}}
@@ -96,24 +74,16 @@
 {{- end }}
 
 {{- /* Favicons */}}
-<link rel="icon" href="{{ .Site.Params.assets.favicon | default "favicon.ico" | absURL }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ .Site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ .Site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
-<link rel="apple-touch-icon" href="{{ .Site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
-<link rel="mask-icon" href="{{ .Site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
+<link rel="icon" href="{{ "favicon.ico" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon.ico" | absURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon.ico" | absURL }}">
+<link rel="apple-touch-icon" href="{{ "favicon.ico" | absURL }}">
+<link rel="mask-icon" href="{{ "favicon.ico" | absURL }}">
 <meta name="theme-color" content="{{ .Site.Params.assets.theme_color | default "#2e2e33" }}">
 <meta name="msapplication-TileColor" content="{{ .Site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
 
 {{- /* Generator */}}
 {{ hugo.Generator }}
-
-{{- /* RSS */}}
-{{ range .AlternativeOutputFormats -}}
-<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
-{{ end -}}
-{{- range .AllTranslations -}}
-<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
-{{ end -}}
 
 <noscript>
     <style>
@@ -123,7 +93,6 @@
         }
 
     </style>
-    {{- if (and (ne .Site.Params.defaultTheme "light") (ne .Site.Params.defaultTheme "dark")) }}
     <style>
         @media (prefers-color-scheme: dark) {
             :root {
@@ -152,15 +121,4 @@
         }
 
     </style>
-    {{- end }}
 </noscript>
-
-{{- partial "extend_head.html" . -}}
-
-{{- /* Misc */}}
-{{- if hugo.IsProduction | or (eq .Site.Params.env "production") }}
-{{- template "_internal/google_analytics.html" . }}
-{{- template "partials/templates/opengraph.html" . }}
-{{- template "partials/templates/twitter_cards.html" . }}
-{{- template "partials/templates/schema_json.html" . }}
-{{- end -}}
