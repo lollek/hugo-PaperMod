@@ -10,7 +10,7 @@
     --entry: #F7EADE;           /* Posts in list view and ToC */
     --primary: #0D2230;         /* Title, links on --theme background AND --entry background */
     --secondary: #2F3E46;       /* Text color on --entry background */
-    --tertiary: var(--entry);   /* Tags, categorier, back-to-top */
+    --tertiary: #f96743;        /* Tags, categories, back-to-top */
     --content: #1f1f1f;         /* Main single view color on --theme background */
     --hljs-bg: #1c1d21;         /* Code blocks */
     --code-bg: var(--entry);    /* Backtick code lines */
@@ -22,7 +22,6 @@
     --entry: #242424;
     --primary: #e6e6e6;
     --secondary: #cccccc;
-    --tertiary: var(--entry);
     --content: #cccccc;
     --hljs-bg: #2e2e33;
     --code-bg: var(--hljs-bg);

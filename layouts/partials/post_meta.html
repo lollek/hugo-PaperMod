@@ -5,8 +5,5 @@
 
 
 {{- range $index, $tag := ($.GetTerms "tags") }}
-{{- if not (eq $index 0) }}
-&nbsp;
-{{- end }}
-<a href="{{ $tag.Permalink }}">🏷️ {{ $tag.LinkTitle }}</a>
+🏷️<a href="{{ $tag.Permalink }}">{{ $tag.LinkTitle }}</a>
 {{- end }}

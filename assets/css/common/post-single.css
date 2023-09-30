@@ -1,3 +1,16 @@
+.post-single a,
+.toc a {
+    box-shadow: var(--tertiary) 0px -1px 0px 0px inset;
+    border-bottom: 1px solid transparent;
+}
+
+.post-single a:hover,
+.toc a:hover {
+    transition: box-shadow .1s ease-in-out;
+    text-decoration: none;
+    border-bottom: 1px solid var(--tertiary);
+}
+
 .page-header,
 .post-header {
     margin: 24px auto var(--content-gap) auto;
@@ -20,11 +33,8 @@
     flex-wrap: wrap;
 }
 
-.post-meta .i18n_list li {
-    display: inline-flex;
-    list-style: none;
-    margin: auto 3px;
-    box-shadow: 0 1px 0 var(--secondary);
+.post-meta a {
+    margin: 0 3px;
 }
 
 .post-content {
@@ -62,11 +72,6 @@
 
 .post-content h6 {
     font-size: 12px;
-}
-
-.post-content a,
-.toc a:hover {
-    box-shadow: 0 1px 0;
 }
 
 .post-content a code {
